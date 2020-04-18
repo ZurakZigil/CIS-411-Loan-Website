@@ -1,0 +1,60 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Master Pages/Secure.Master" AutoEventWireup="true" CodeBehind="Secure_Customer.master.cs" Inherits="LoanWebsite.Master_Pages.Secure_Customer" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="navbar navbar-inverse navbar-fixed-top"  style="left: 0px; right: 0px; top: 0px; height: 75px; width: 100%; background-color: #0E3157;">
+        <div class="container">
+            <div class="navbar-header">
+                <%--                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>--%>
+                <a class="navbar-brand" runat="server"></a>&nbsp;
+
+            </div>
+            <div class="navbar-collapse collapse" style="margin-top: 10px;">
+                <ul class="nav navbar-nav">
+                    <li><img src="../Content/Main_Images/titlev3.png" style="height: 35px;"/></li>
+                    <li><a runat="server" href="~/Pages/Customer_ManageProfile">Profile</a></li>
+                    <li><a runat="server" href="~/Pages/Customer_CreateLoans">New Loan</a></li>
+                    <li><a runat="server" href="~/Pages/Customer_ViewLoans">View Loans</a></li>
+                </ul>
+                <div display="inline">
+                    <ul class="nav navbar-nav" style="margin-left: 5%; margin-top: 15px;">
+                        <li>
+                            <asp:FormView ID="FormView1" runat="server" DataSourceID="daUserInfo">
+                                <EditItemTemplate>
+                                    Username:
+                                        <asp:TextBox Text='<%# Bind("Username") %>' runat="server" ID="UsernameTextBox" /><br />
+                                    <asp:LinkButton runat="server" Text="Update" CommandName="Update" ID="UpdateButton" CausesValidation="True" />&nbsp;<asp:LinkButton runat="server" Text="Cancel" CommandName="Cancel" ID="UpdateCancelButton" CausesValidation="False" />
+                                </EditItemTemplate>
+                                <InsertItemTemplate>
+                                    Username:
+                                        <asp:TextBox Text='<%# Bind("Username") %>' runat="server" ID="UsernameTextBox" /><br />
+                                    <asp:LinkButton runat="server" Text="Insert" CommandName="Insert" ID="InsertButton" CausesValidation="True" />&nbsp;<asp:LinkButton runat="server" Text="Cancel" CommandName="Cancel" ID="InsertCancelButton" CausesValidation="False" />
+                                </InsertItemTemplate>
+                                <ItemTemplate>
+                                    Username:
+                                        <asp:Label Text='<%# Bind("Username") %>' runat="server" ID="UsernameLabel" /><br />
+
+                                </ItemTemplate>
+                            </asp:FormView>
+                            <asp:SqlDataSource runat="server" ID="daUserInfo" ConnectionString='<%$ ConnectionStrings:CIS41100ConnectionString %>' SelectCommand="SELECT [Username] FROM [tblAbbottUser] WHERE ([UserID] = @UserID)">
+                                <SelectParameters>
+                                    <asp:SessionParameter SessionField="UserID" DefaultValue="0" Name="UserID" Type="Int32"></asp:SessionParameter>
+                                </SelectParameters>
+                            </asp:SqlDataSource>
+                        </li>
+                        <li>
+                            <asp:HyperLink ID="lblUserName" runat="server" NavigateUrl="~/Pages/Customer_ManageProfile.aspx">[UserName]</asp:HyperLink></li>
+                        <li>
+                            <asp:Button ID="btnLogout" runat="server" OnClick="lblLogout_Click" Text="Logout" BorderStyle="None" BorderWidth="0" Font-Bold="True" ForeColor="Black" Height="20px" Width="125px" Style="margin-left: 30px;" /></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <asp:ContentPlaceHolder ID="nestedContent" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>
